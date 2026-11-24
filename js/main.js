@@ -70,8 +70,25 @@
     const sobre = $("[data-sobre]");
     for (const p of PERFIL.sobre || []) sobre.append(el("p", {}, p));
 
+    // Competências: aceita grupos ({ grupo, itens }) ou uma lista simples.
     const hab = $("[data-habilidades]");
-    for (const h of PERFIL.habilidades || []) hab.append(el("li", { class: "chip" }, h));
+    const habs = PERFIL.habilidades || [];
+    const grupos = habs.length && typeof habs[0] === "string" ? [{ grupo: "", itens: habs }] : habs;
+    for (const g of grupos) {
+      hab.append(el("div", { class: "hab-grupo" },
+        g.grupo ? el("p", { class: "hab-titulo" }, g.grupo) : null,
+        el("ul", { class: "chips" }, g.itens.map((h) => el("li", { class: "chip" }, h)))));
+    }
+
+    const formacao = (PERFIL.formacao || []).filter((f) => f.curso || f.instituicao);
+    if (formacao.length) {
+      $("[data-formacao]").append(...formacao.map((f) =>
+        el("li", {},
+          f.curso ? el("strong", {}, f.curso) : null,
+          f.instituicao ? el("span", {}, f.instituicao) : null,
+          f.periodo ? el("span", { class: "formacao-periodo" }, f.periodo) : null)));
+      $("[data-formacao-bloco]").hidden = false;
+    }
 
     if (PERFIL.localizacao) {
       const local = $("[data-local]");
@@ -102,18 +119,68 @@
     const s = (t) => el("span", { class: "c-str" }, `"${t}"`);
     const k = (t) => el("span", { class: "c-chave" }, t);
     const p = (t) => el("span", { class: "c-pont" }, t);
-    const stack = (PERFIL.habilidades || []).slice(0, 3);
+    const todas = (PERFIL.habilidades || []).flatMap((h) => (typeof h === "string" ? [h] : h.itens));
+    const stack = PERFIL.stack && PERFIL.stack.length ? PERFIL.stack : todas.slice(0, 3);
+    const foco = PERFIL.cargo.split("·")[0].trim();
     const linhas = [
       [el("span", { class: "c-kw" }, "const "), el("span", { class: "c-var" }, "dev"), p(" = {")],
       ["  ", k("nome"), p(": "), s(PERFIL.nome), p(",")],
-      ["  ", k("cargo"), p(": "), s(PERFIL.cargo), p(",")],
+      ["  ", k("foco"), p(": "), s(foco), p(",")],
+      PERFIL.localizacao ? ["  ", k("local"), p(": "), s(PERFIL.localizacao), p(",")] : null,
       ["  ", k("stack"), p(": ["), stack.flatMap((t, i) => (i ? [p(", "), s(t)] : [s(t)])), p("],")],
       ["  ", k("projetos"), p(": "), el("span", { class: "c-num" }, String(PROJETOS.length)), p(",")],
       ["  ", k("aprendendo"), p(": "), el("span", { class: "c-kw" }, "true")],
       [p("};"), el("span", { class: "cursor" })],
-    ];
+    ].filter(Boolean);
     const code = $("[data-codigo]");
     linhas.forEach((l, i) => code.append(el("span", { class: "linha" }, el("span", { class: "n" }, String(i + 1)), l), "\n"));
+  }
+
+  /* ---------------- Experiência ---------------- */
+  function montarExperiencia() {
+    const alvo = $("[data-experiencia]");
+    const lista = typeof EXPERIENCIA !== "undefined" ? EXPERIENCIA : [];
+    if (!lista.length) {
+      $("#experiencia").hidden = true;
+      document.querySelector('.menu a[href="#experiencia"]')?.parentElement.remove();
+      return;
+    }
+
+    // Agrupa itens seguidos da mesma área, mantendo a ordem do arquivo.
+    const areas = [];
+    for (const item of lista) {
+      const ultima = areas[areas.length - 1];
+      if (ultima && ultima.nome === (item.area || "")) ultima.itens.push(item);
+      else areas.push({ nome: item.area || "", itens: [item] });
+    }
+
+    for (const area of areas) {
+      alvo.append(el("div", { class: "exp-area" },
+        area.nome ? el("h3", { class: "exp-area-titulo" }, area.nome) : null,
+        el("ol", { class: "exp-lista" }, area.itens.map(itemExperiencia))));
+    }
+  }
+
+  function itemExperiencia(x) {
+    const cargos = x.cargos || [];
+    const atual = cargos.some((c) => /atual/i.test(c.periodo || ""));
+    const detalhado = Boolean(x.destaques && x.destaques.length);
+    const meta = [x.local, x.periodo].filter(Boolean).join(" · ");
+
+    return el("li", { class: "exp-item" + (atual ? " exp-atual" : "") + (detalhado ? " exp-detalhado" : "") },
+      el("div", { class: "exp-cabeca" },
+        el("h4", { class: "exp-empresa" }, x.empresa),
+        meta ? el("p", { class: "exp-meta" }, meta) : null),
+      cargos.length
+        ? el("ul", { class: "exp-cargos" }, cargos.map((c) =>
+            el("li", {},
+              el("span", { class: "exp-cargo" }, c.titulo),
+              /atual/i.test(c.periodo || "") ? el("span", { class: "selo" }, "Atual") : null,
+              c.periodo ? el("span", { class: "exp-periodo" }, c.periodo) : null)))
+        : null,
+      x.resumo ? el("p", { class: "exp-resumo" }, x.resumo) : null,
+      x.destaques && x.destaques.length ? el("ul", { class: "exp-destaques" }, x.destaques.map((d) => el("li", {}, d))) : null,
+      x.tags && x.tags.length ? el("ul", { class: "tags", "aria-label": "Competências" }, x.tags.map((t) => el("li", {}, t))) : null);
   }
 
   /* ---------------- Projetos ---------------- */
@@ -244,6 +311,7 @@
   }
 
   montarPerfil();
+  montarExperiencia();
   montarProjetos();
   montarTema();
   montarMenu();

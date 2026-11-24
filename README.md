@@ -7,7 +7,7 @@ Site pessoal para apresentar meus projetos. Feito com HTML, CSS e JavaScript pur
 ```
 index.html          → estrutura da página
 css/style.css       → visual (cores, fontes, layout)
-js/dados.js         → SEUS DADOS: perfil, links e lista de projetos  ← edite aqui
+js/dados.js         → SEUS DADOS: perfil, experiência e projetos  ← edite aqui
 js/main.js          → monta a página a partir de dados.js
 assets/             → favicon, imagens e (opcional) currículo em PDF
 assets/projetos/    → capturas de tela dos projetos
@@ -17,7 +17,8 @@ assets/projetos/    → capturas de tela dos projetos
 
 Quase tudo se faz no arquivo **`js/dados.js`**:
 
-- **`PERFIL`**: nome, cargo, bio, texto do "Sobre mim", tecnologias e links (GitHub, LinkedIn, e-mail, currículo). Campos vazios (`""`) não aparecem no site.
+- **`PERFIL`**: nome, cargo, bio, texto do "Sobre mim", competências (em grupos), formação e links (GitHub, LinkedIn, e-mail, currículo). Campos vazios (`""`) não aparecem no site.
+- **`EXPERIENCIA`**: a linha do tempo profissional. Itens com `destaques` aparecem em destaque (cartão); os demais, em formato compacto.
 - **`PROJETOS`**: a lista de projetos. Para adicionar um, copie um bloco `{ ... }`, cole no final da lista e preencha:
 
 ```js

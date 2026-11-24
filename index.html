@@ -3,11 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Diogo · Portfólio</title>
-  <meta name="description" content="Portfólio de Diogo — projetos de desenvolvimento web.">
+  <title>Diogo Albuquerque · Portfólio</title>
+  <meta name="description" content="Portfólio de Diogo Albuquerque — IA & Automação, dados e integrações: agentes de IA, n8n, Python, SQL, Power BI e APIs.">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Diogo · Portfólio">
-  <meta property="og:description" content="Projetos de desenvolvimento web.">
+  <meta property="og:title" content="Diogo Albuquerque · Portfólio">
+  <meta property="og:description" content="IA & Automação, dados e integrações.">
   <meta name="theme-color" content="#0c0d12" media="(prefers-color-scheme: dark)">
   <meta name="theme-color" content="#f6f5f1" media="(prefers-color-scheme: light)">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
@@ -36,6 +36,7 @@
 
       <ul id="menu" class="menu">
         <li><a href="#sobre">Sobre</a></li>
+        <li><a href="#experiencia">Experiência</a></li>
         <li><a href="#projetos">Projetos</a></li>
         <li><a href="#contato">Contato</a></li>
       </ul>
@@ -57,7 +58,7 @@
     <section id="inicio" class="hero container">
       <div class="hero-texto">
         <p class="rotulo">Olá, eu sou</p>
-        <h1 class="hero-nome" data-nome>Diogo</h1>
+        <h1 class="hero-nome" data-nome>Diogo Albuquerque</h1>
         <p class="hero-cargo" data-cargo></p>
         <p class="hero-bio" data-bio></p>
         <div class="acoes">
@@ -82,17 +83,30 @@
       <div class="sobre-grid">
         <div class="sobre-texto" data-sobre></div>
         <aside class="sobre-lado">
-          <h3>Tecnologias</h3>
-          <ul class="chips" data-habilidades></ul>
+          <h3>Competências</h3>
+          <div class="hab-grupos" data-habilidades></div>
+          <div class="lado-bloco" data-formacao-bloco hidden>
+            <h3>Formação</h3>
+            <ul class="formacao" data-formacao></ul>
+          </div>
           <p class="local" data-local hidden></p>
         </aside>
       </div>
     </section>
 
+    <!-- EXPERIÊNCIA -->
+    <section id="experiencia" class="secao container revelar">
+      <header class="secao-topo">
+        <span class="secao-num">02</span>
+        <h2>Experiência</h2>
+      </header>
+      <div class="experiencia" data-experiencia></div>
+    </section>
+
     <!-- PROJETOS -->
     <section id="projetos" class="secao container revelar">
       <header class="secao-topo">
-        <span class="secao-num">02</span>
+        <span class="secao-num">03</span>
         <h2>Projetos</h2>
         <span class="secao-contagem" data-contagem></span>
       </header>
@@ -111,19 +125,19 @@
     <!-- CONTATO -->
     <section id="contato" class="secao container revelar">
       <header class="secao-topo">
-        <span class="secao-num">03</span>
+        <span class="secao-num">04</span>
         <h2>Contato</h2>
       </header>
       <div class="contato-caixa">
         <p class="contato-titulo">Vamos conversar?</p>
-        <p class="contato-texto">Estou aberto a conversas sobre projetos, estágios e oportunidades. Fale comigo por um dos canais abaixo.</p>
+        <p class="contato-texto">Quer conversar sobre IA, automação, dados ou integrações? Fale comigo por um dos canais abaixo.</p>
         <div class="acoes" data-contatos></div>
       </div>
     </section>
   </main>
 
   <footer class="rodape container">
-    <p>© <span data-ano></span> <span data-nome-rodape>Diogo</span></p>
+    <p>© <span data-ano></span> <span data-nome-rodape>Diogo Albuquerque</span></p>
     <a href="#inicio" class="link-seta">Voltar ao topo <span aria-hidden="true">↑</span></a>
   </footer>
 
