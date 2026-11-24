@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Diogo · Portfólio</title>
+  <meta name="description" content="Portfólio de Diogo — projetos de desenvolvimento web.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Diogo · Portfólio">
+  <meta property="og:description" content="Projetos de desenvolvimento web.">
+  <meta name="theme-color" content="#0c0d12" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#f6f5f1" media="(prefers-color-scheme: light)">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="css/style.css">
+
+  <script>
+    // Aplica o tema salvo antes de desenhar a página (evita "piscar").
+    try {
+      var t = localStorage.getItem("tema");
+      if (t === "claro" || t === "escuro") {
+        document.documentElement.dataset.theme = t === "claro" ? "light" : "dark";
+      }
+    } catch (e) {}
+  </script>
+</head>
+<body>
+  <a class="pular" href="#conteudo">Pular para o conteúdo</a>
+
+  <header class="topo">
+    <nav class="nav container" aria-label="Principal">
+      <a href="#inicio" class="logo" aria-label="Início"><span data-iniciais>D</span><span class="logo-ponto">.</span></a>
+
+      <ul id="menu" class="menu">
+        <li><a href="#sobre">Sobre</a></li>
+        <li><a href="#projetos">Projetos</a></li>
+        <li><a href="#contato">Contato</a></li>
+      </ul>
+
+      <div class="nav-acoes">
+        <button class="icone-btn" type="button" data-tema-btn aria-label="Alternar tema claro/escuro">
+          <svg class="ic-sol" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+          <svg class="ic-lua" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        </button>
+        <button class="icone-btn menu-btn" type="button" data-menu-btn aria-expanded="false" aria-controls="menu" aria-label="Abrir menu">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <main id="conteudo">
+    <!-- INÍCIO -->
+    <section id="inicio" class="hero container">
+      <div class="hero-texto">
+        <p class="rotulo">Olá, eu sou</p>
+        <h1 class="hero-nome" data-nome>Diogo</h1>
+        <p class="hero-cargo" data-cargo></p>
+        <p class="hero-bio" data-bio></p>
+        <div class="acoes">
+          <a class="btn btn-primario" href="#projetos">Ver projetos</a>
+          <a class="btn btn-secundario" href="#contato">Entrar em contato</a>
+        </div>
+        <ul class="sociais" data-sociais aria-label="Redes"></ul>
+      </div>
+
+      <div class="hero-codigo" aria-hidden="true">
+        <div class="janela-barra"><span></span><span></span><span></span><em>sobre-mim.js</em></div>
+        <pre><code data-codigo></code></pre>
+      </div>
+    </section>
+
+    <!-- SOBRE -->
+    <section id="sobre" class="secao container revelar">
+      <header class="secao-topo">
+        <span class="secao-num">01</span>
+        <h2>Sobre mim</h2>
+      </header>
+      <div class="sobre-grid">
+        <div class="sobre-texto" data-sobre></div>
+        <aside class="sobre-lado">
+          <h3>Tecnologias</h3>
+          <ul class="chips" data-habilidades></ul>
+          <p class="local" data-local hidden></p>
+        </aside>
+      </div>
+    </section>
+
+    <!-- PROJETOS -->
+    <section id="projetos" class="secao container revelar">
+      <header class="secao-topo">
+        <span class="secao-num">02</span>
+        <h2>Projetos</h2>
+        <span class="secao-contagem" data-contagem></span>
+      </header>
+
+      <div class="filtros" role="group" aria-label="Filtrar projetos por tecnologia" data-filtros></div>
+      <ul class="projetos" data-projetos></ul>
+      <p class="vazio" data-vazio hidden>Nenhum projeto com essa tecnologia ainda.</p>
+
+      <noscript><p class="vazio">Ative o JavaScript para ver os projetos.</p></noscript>
+
+      <div class="mais" data-mais hidden>
+        <a class="link-seta" data-github-todos target="_blank" rel="noopener">Ver todos os repositórios no GitHub <span aria-hidden="true">→</span></a>
+      </div>
+    </section>
+
+    <!-- CONTATO -->
+    <section id="contato" class="secao container revelar">
+      <header class="secao-topo">
+        <span class="secao-num">03</span>
+        <h2>Contato</h2>
+      </header>
+      <div class="contato-caixa">
+        <p class="contato-titulo">Vamos conversar?</p>
+        <p class="contato-texto">Estou aberto a conversas sobre projetos, estágios e oportunidades. Fale comigo por um dos canais abaixo.</p>
+        <div class="acoes" data-contatos></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="rodape container">
+    <p>© <span data-ano></span> <span data-nome-rodape>Diogo</span></p>
+    <a href="#inicio" class="link-seta">Voltar ao topo <span aria-hidden="true">↑</span></a>
+  </footer>
+
+  <script src="js/dados.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
